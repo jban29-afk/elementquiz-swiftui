@@ -1,0 +1,55 @@
+import SwiftUI
+
+struct ContentView: View {
+    // State variables replace the properties in UIKit
+    let elementList = ["Carbon", "Gold", "Chlorine", "Sodium"]
+    @State private var currentElementIndex = 0
+    @State private var showAnswer = false
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Element Quiz")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+
+            // The Image view
+            Image(elementList[currentElementIndex])
+                .resizable()
+                .scaledToFit()
+                .frame(height: 200)
+                .cornerRadius(12)
+
+            // The Answer Label
+            Text(showAnswer ? elementList[currentElementIndex] : "?")
+                .font(.title)
+                .padding()
+
+            // Buttons
+            HStack(spacing: 40) {
+                Button("Show Answer") {
+                    showAnswer = true
+                }
+                .buttonStyle(.borderedProminent)
+
+                Button("Next Element") {
+                    nextElement()
+                }
+                .buttonStyle(.bordered)
+            }
+        }
+        .padding()
+    }
+
+    // Logic function
+    func nextElement() {
+        showAnswer = false
+        currentElementIndex += 1
+        if currentElementIndex >= elementList.count {
+            currentElementIndex = 0
+        }
+    }
+}
+
+#Preview {
+    ContentView()
+}
